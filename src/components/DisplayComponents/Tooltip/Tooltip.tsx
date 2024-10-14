@@ -26,7 +26,7 @@ const Tooltip: React.FC<TooltipProps> = ({ content, children, position = 'bottom
             </TouchableOpacity>
             {visible && (
                 <View style={[styles.tooltip, tooltipPositionStyle, { backgroundColor: theme.colors.background }, style]}>
-                    <Text style={[styles.tooltipText, { color: theme.colors.text }]}>{content}</Text>
+                    <Text style={[styles.tooltipText, { color: theme.colors.text, userSelect: 'none' }]}>{content}</Text>
                 </View>
             )}
         </View>
