@@ -6,18 +6,28 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build:web": "expo build:web",
+    "install": "npm install --legacy-peer-deps"
   },
   "dependencies": {
+    "@expo/vector-icons": "^14.0.4",
     "expo": "~51.0.28",
     "expo-status-bar": "~1.12.1",
-    "react": "18.2.0",
-    "react-native": "0.74.5"
+    "react": "18.3.1",
+    "react-native": "0.74.5",
+    "styled-components": "^6.1.13",
+    "react-native-web": "~0.19.10",
+    "@expo/metro-runtime": "~3.2.3",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.45",
-    "typescript": "^5.1.3"
+    "@types/react-native": "^0.73.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.1.3",
+    "metro-react-native-babel-preset": "^0.73.7"
   },
   "private": true
 }
