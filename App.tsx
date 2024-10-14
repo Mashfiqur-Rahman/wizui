@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
-import Toast from './src/components/FeedbackComponents/Toast/Toast';
+import Notification from './src/components/FeedbackComponents/Notification/Notification';
 
 export default function App() {
-    const [toastVisible, setToastVisible] = useState(false);
+    const [notificationVisible, setNotificationVisible] = useState(false);
 
     return (
         <View style={styles.container}>
-            <Button title="Show Success Toast" onPress={() => setToastVisible(true)} />
+            <Button title="Show Notification" onPress={() => setNotificationVisible(true)} />
 
-            <Toast
-                message="Operation successful!"
-                visible={toastVisible}
-                onDismiss={() => setToastVisible(false)}
-                type="error"
-                duration={3000}
-                position="bottom"
-            />
+            {notificationVisible && (
+                <Notification
+                    message="This is an info notification!"
+                    type="info"
+                    position="top"
+                    onClose={() => setNotificationVisible(false)}
+                />
+            )}
         </View>
     );
 }
