@@ -1,65 +1,52 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Checkbox from './Checkbox';  // Assuming Checkbox component exists
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../../theme/ThemeProvider';
 
-interface Option {
-    label: string;
-    value: string;
-}
-
 interface CheckboxListProps {
-    options: Option[];
-    minSelected: number;
-    maxSelected: number;
-    onSelectionChange?: (selectedValues: string[]) => void;
+    options: { label: string; value: string }[];
+    minSelected?: number;
+    maxSelected?: number;
+    onSelectionChange: (values: string[]) => void;
 }
 
 const CheckboxList: React.FC<CheckboxListProps> = ({ options, minSelected, maxSelected, onSelectionChange }) => {
-    const [selected, setSelected] = useState<string[]>([]);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [selectedValues, setSelectedValues] = React.useState<string[]>([]);
     const theme = useTheme();
 
-    const handleCheckboxChange = (value: string, checked: boolean) => {
-        let newSelected = [...selected];
-
-        if (checked) {
-            // Add value to the selected list
-            if (newSelected.length < maxSelected) {
-                newSelected.push(value);
-            } else {
-                setErrorMessage(`You can select a maximum of ${maxSelected} items.`);
-                return;
-            }
+    const handleSelect = (value: string) => {
+        let newSelectedValues = [...selectedValues];
+        if (newSelectedValues.includes(value)) {
+            newSelectedValues = newSelectedValues.filter((v) => v !== value);
         } else {
-            // Remove value from the selected list
-            newSelected = newSelected.filter((item) => item !== value);
+            newSelectedValues.push(value);
         }
 
-        setSelected(newSelected);
-        setErrorMessage('');
-
-        // Check if the number of selected items is below the minimum
-        if (newSelected.length < minSelected) {
-            setErrorMessage(`Please select at least ${minSelected} items.`);
+        if (minSelected && newSelectedValues.length < minSelected) {
+            return;
         }
 
-        if (onSelectionChange) {
-            onSelectionChange(newSelected);
+        if (maxSelected && newSelectedValues.length > maxSelected) {
+            return;
         }
+
+        setSelectedValues(newSelectedValues);
+        onSelectionChange(newSelectedValues);
     };
 
     return (
         <View style={styles.container}>
             {options.map((option) => (
-                <Checkbox
+                <TouchableOpacity
                     key={option.value}
-                    label={option.label}
-                    checked={selected.includes(option.value)}
-                    onChange={(checked) => handleCheckboxChange(option.value, checked)}
-                />
+                    style={styles.optionContainer}
+                    onPress={() => handleSelect(option.value)}
+                >
+                    <View style={[styles.checkbox, selectedValues.includes(option.value) && styles.checkedCheckbox]}>
+                        {selectedValues.includes(option.value) && <Text style={styles.checkmark}>✓</Text>}
+                    </View>
+                    <Text style={styles.label}>{option.label}</Text>
+                </TouchableOpacity>
             ))}
-            {errorMessage && <Text style={[styles.error, { color: theme.colors.error }]}>{errorMessage}</Text>}
         </View>
     );
 };
@@ -68,9 +55,29 @@ const styles = StyleSheet.create({
     container: {
         marginVertical: 10,
     },
-    error: {
-        marginTop: 10,
-        fontSize: 12,
+    optionContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    checkbox: {
+        width: 20,
+        height: 20,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
+    },
+    checkedCheckbox: {
+        backgroundColor: '#007AFF',
+    },
+    checkmark: {
+        color: '#fff',
+    },
+    label: {
+        fontSize: 16,
+        color: '#333',
     },
 });
 
