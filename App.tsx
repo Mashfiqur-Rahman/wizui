@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
-import ProgressBar from './src/components/FeedbackComponents/ProgressBar/ProgressBar';
+import LoadingSpinner from './src/components/FeedbackComponents/LoadingSpinner/LoadingSpinner';
 
 export default function App() {
-    const [progress, setProgress] = useState(0);
+    const [loading, setLoading] = useState(false);
 
-    const increaseProgress = () => {
-        setProgress((prevProgress) => (prevProgress < 100 ? prevProgress + 10 : 100));
+    const startLoading = () => {
+        setLoading(true);
+        setTimeout(() => setLoading(false), 3000);  // Simulates a 3-second loading process
     };
 
     return (
         <View style={styles.container}>
-            <ProgressBar progress={progress} showLabel={true} height={15} />
-            <Button title="Increase Progress" onPress={increaseProgress} />
+            <Button title="Start Loading" onPress={startLoading} />
+
+            {loading && <LoadingSpinner size="large" color="#4CAF50" />}
         </View>
     );
 }
@@ -22,6 +24,5 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 16,
     },
 });
