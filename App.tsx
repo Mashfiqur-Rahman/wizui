@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import TextInput from './src/components/FormComponents/TextInput/TextInput';
 import Button from "./src/components/FormComponents/Button/Button";
 import Select from "./src/components/FormComponents/Select/Select";
@@ -35,67 +35,75 @@ export default function App() {
     const handleRGValueChange = (value: string) => {
         setSelectedValue(value);
     };
+
     return (
-        <View style={styles.container}>
-            <TextInput
-                label="Username"
-                iconName={'user'}
-                placeholder="Enter your username"
-                value={text}
-                onChangeText={handleChangeText}
-                errorMessage={error}
-            />
-            <Text>TextInput value: {text}</Text>
-            <Button title="Submit" onPress={() => console.log('Submit')} iconName={'user'} />
-            <Select
-                label="Select an Option"
-                options={[
-                    { label: 'Option 1', value: '1' },
-                    { label: 'Option 2', value: '2' },
-                    { label: 'Option 3', value: '3' },
-                ]}
-                placeholder="Pick one"
-                selectedValue={selected}
-                onValueChange={handleValueChange}
-                leftIconName="list-alt"  // Left icon
-                errorMessage={selected == '' || selected ? '' : 'This field is required'}
-            />
-            <Text>Select Value: {selected}</Text>
-            <Checkbox
-                label="Accept Terms and Conditions"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-                errorMessage={!isChecked ? 'You must accept the terms' : ''}
-            />
-            <Text>Checkbox Value: {isChecked ? 'Checked' : 'Unchecked'}</Text>
-            <CheckboxList
-                options={[
-                    { label: 'Option 1', value: '1' },
-                    { label: 'Option 2', value: '2' },
-                    { label: 'Option 3', value: '3' },
-                    { label: 'Option 4', value: '4' },
-                ]}
-                minSelected={1}
-                maxSelected={3}
-                onSelectionChange={handleSelectionChange}
-            />
-            <Text>Selected: {selectedValues.join(', ')}</Text>
-            <RadioGroup
-                label="Select an Option"
-                options={[
-                    { label: 'Option 1', value: '1' },
-                    { label: 'Option 2', value: '2' },
-                    { label: 'Option 3', value: '3' },
-                ]}
-                selectedValue={selectedValue}
-                onValueChange={handleRGValueChange}
-            />
-            <Text>Selected Value: {selectedValue}</Text>
-        </View>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <View style={styles.container}>
+                <TextInput
+                    label="Username"
+                    iconName={'user'}
+                    placeholder="Enter your username"
+                    value={text}
+                    onChangeText={handleChangeText}
+                    errorMessage={error}
+                />
+                <Text>TextInput value: {text}</Text>
+                <Button title="Submit" onPress={() => console.log('Submit')} iconName={'user'} />
+                <Select
+                    label="Select an Option"
+                    options={[
+                        { label: 'Option 1', value: '1' },
+                        { label: 'Option 2', value: '2' },
+                        { label: 'Option 3', value: '3' },
+                    ]}
+                    placeholder="Pick one"
+                    selectedValue={selected}
+                    onValueChange={handleValueChange}
+                    leftIconName="list-alt"  // Left icon
+                    errorMessage={selected == '' || selected ? '' : 'This field is required'}
+                />
+                <Text>Select Value: {selected}</Text>
+                <Checkbox
+                    label="Accept Terms and Conditions"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                    errorMessage={!isChecked ? 'You must accept the terms' : ''}
+                />
+                <Text>Checkbox Value: {isChecked ? 'Checked' : 'Unchecked'}</Text>
+                <CheckboxList
+                    options={[
+                        { label: 'Option 1', value: '1' },
+                        { label: 'Option 2', value: '2' },
+                        { label: 'Option 3', value: '3' },
+                        { label: 'Option 4', value: '4' },
+                    ]}
+                    minSelected={1}
+                    maxSelected={3}
+                    onSelectionChange={handleSelectionChange}
+                />
+                <Text>Selected: {selectedValues.join(', ')}</Text>
+                <RadioGroup
+                    label="Select an Option"
+                    options={[
+                        { label: 'Option 1', value: '1' },
+                        { label: 'Option 2', value: '2' },
+                        { label: 'Option 3', value: '3' },
+                    ]}
+                    selectedValue={selectedValue}
+                    onValueChange={handleRGValueChange}
+                />
+                <Text>Selected Value: {selectedValue}</Text>
+            </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
+    scrollContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        padding: 20,
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
