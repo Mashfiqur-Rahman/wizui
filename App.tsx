@@ -1,22 +1,18 @@
 import React, { useState } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
-import Notification from './src/components/FeedbackComponents/Notification/Notification';
+import ProgressBar from './src/components/FeedbackComponents/ProgressBar/ProgressBar';
 
 export default function App() {
-    const [notificationVisible, setNotificationVisible] = useState(false);
+    const [progress, setProgress] = useState(0);
+
+    const increaseProgress = () => {
+        setProgress((prevProgress) => (prevProgress < 100 ? prevProgress + 10 : 100));
+    };
 
     return (
         <View style={styles.container}>
-            <Button title="Show Notification" onPress={() => setNotificationVisible(true)} />
-
-            {notificationVisible && (
-                <Notification
-                    message="This is an info notification!"
-                    type="info"
-                    position="top"
-                    onClose={() => setNotificationVisible(false)}
-                />
-            )}
+            <ProgressBar progress={progress} showLabel={true} height={15} />
+            <Button title="Increase Progress" onPress={increaseProgress} />
         </View>
     );
 }
@@ -26,5 +22,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 16,
     },
 });
