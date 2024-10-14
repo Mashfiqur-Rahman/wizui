@@ -8,15 +8,16 @@ interface ButtonProps extends PressableProps {
     variant?: 'primary' | 'secondary';
     iconName?: keyof typeof FontAwesome.glyphMap;
     iconPosition?: 'left' | 'right';
+    color?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onPress, variant = 'primary', iconName, iconPosition = 'left', ...rest }) => {
+const Button: React.FC<ButtonProps> = ({ title, onPress, variant = 'primary', iconName, iconPosition = 'left', color, ...rest }) => {
     const theme = useTheme();
 
     return (
         <Pressable
             onPress={onPress}
-            style={[styles.button, { backgroundColor: theme.colors[variant] }]}
+            style={[styles.button, { backgroundColor: color || theme.colors[variant],  }]}
             {...rest}
         >
             <View style={styles.content}>
