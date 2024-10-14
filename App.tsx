@@ -1,61 +1,107 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import Table from './src/components/DataDisplayComponents/Table/Table';
+import { ScrollView, View, StyleSheet, Text } from 'react-native';
+import Carousel from './src/components/DisplayComponents/Carousel/Carousel';
+import Stepper from './src/components/FeedbackComponents/Stepper/Stepper';
+import Tags from './src/components/DisplayComponents/Tags/Tags';
+import Accordion from './src/components/DisplayComponents/Accordion/Accordion';
+import Button from './src/components/FormComponents/Button/Button';
 
 export default function App() {
-    const [currentPage, setCurrentPage] = useState(1);
-    const rowsPerPage = 2;  // Define how many rows to show per page
+    const [textAreaValue, setTextAreaValue] = useState('');
+    const [currentStep, setCurrentStep] = useState(0);
 
-    const data = [
-        { key: 1, name: 'John', age: 28, profession: 'Engineer' },
-        { key: 2, name: 'Jane', age: 32, profession: 'Doctor' },
-        { key: 3, name: 'Sam', age: 24, profession: 'Teacher' },
-        { key: 4, name: 'Anna', age: 22, profession: 'Designer' },
-    ];
+    const tags = ['React', 'JavaScript', 'Node.js', 'CSS'];
+    const steps = ['Step 1', 'Step 2', 'Step 3', 'Step 4'];
 
-    const totalPages = Math.ceil(data.length / rowsPerPage);
-
-    const paginatedData = data.slice(
-        (currentPage - 1) * rowsPerPage,
-        currentPage * rowsPerPage
-    );
-
-    const handleNextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
+    const handleNextStep = () => {
+        if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
     };
 
-    const handlePreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
+    const handlePreviousStep = () => {
+        if (currentStep > 0) setCurrentStep(currentStep - 1);
     };
-
-    const columns = [
-        { title: 'Name', dataIndex: 'name' },
-        { title: 'Age', dataIndex: 'age' },
-        { title: 'Profession', dataIndex: 'profession', render: (value) => <Text style={{ fontWeight: 'bold' }}>{value}</Text> },
-    ];
 
     return (
-        <View style={styles.container}>
-            <Table
-                columns={columns}
-                data={paginatedData}
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onNextPage={handleNextPage}
-                onPreviousPage={handlePreviousPage}
-            />
-        </View>
+        <ScrollView style={styles.container}>
+            {/* TextArea Example */}
+            <Text style={styles.sectionHeader}>Text Area</Text>
+            {/*<TextArea*/}
+            {/*    value={textAreaValue}*/}
+            {/*    onChange={setTextAreaValue}*/}
+            {/*    placeholder="Enter multi-line text here"*/}
+            {/*/>*/}
+            <Text style={styles.textAreaValue}>Value: {textAreaValue}</Text>
+
+            {/* Carousel Example */}
+            <Text style={styles.sectionHeader}>Carousel</Text>
+            <Carousel>
+                <View style={styles.carouselItem}>
+                    <Text>Item 1</Text>
+                </View>
+                <View style={styles.carouselItem}>
+                    <Text>Item 2</Text>
+                </View>
+                <View style={styles.carouselItem}>
+                    <Text>Item 3</Text>
+                </View>
+                <View style={styles.carouselItem}>
+                    <Text>Item 4</Text>
+                </View>
+                <View style={styles.carouselItem}>
+                    <Text>Item 5</Text>
+                </View>
+            </Carousel>
+
+            {/* Stepper Example */}
+            <Text style={styles.sectionHeader}>Stepper</Text>
+            <Stepper steps={steps} currentStep={currentStep} />
+            <View style={styles.stepperButtons}>
+                <Button title="Previous" onPress={handlePreviousStep} disabled={currentStep === 0} />
+                <Button title="Next" onPress={handleNextStep} disabled={currentStep === steps.length - 1} />
+            </View>
+
+            {/* Tags Example */}
+            <Text style={styles.sectionHeader}>Tags</Text>
+            <Tags tags={tags} />
+
+            {/* Accordion Example */}
+            <Text style={styles.sectionHeader}>Accordion</Text>
+            <Accordion title="Click to Expand">
+                <Text>This is the content inside the accordion.</Text>
+            </Accordion>
+            <Accordion title="Another Accordion">
+                <Text>More expandable content here.</Text>
+            </Accordion>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         padding: 16,
+    },
+    sectionHeader: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginVertical: 10,
+    },
+    textAreaValue: {
+        marginTop: 10,
+        color: '#333',
+    },
+    carouselItem: {
+        width: 300,
+        height: 200,
+        backgroundColor: '#e0e0e0',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginHorizontal: 5,
+    },
+    stepperButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 10,
     },
 });
