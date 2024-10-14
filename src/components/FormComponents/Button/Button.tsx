@@ -1,9 +1,9 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, TouchableOpacityProps, StyleSheet } from 'react-native';
+import { Pressable, Text, View, PressableProps, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTheme } from '../../../theme/ThemeProvider';
 
-interface ButtonProps extends TouchableOpacityProps {
+interface ButtonProps extends PressableProps {
     title: string;
     variant?: 'primary' | 'secondary';
     iconName?: keyof typeof FontAwesome.glyphMap;
@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, variant = 'primary', ic
     const theme = useTheme();
 
     return (
-        <TouchableOpacity
+        <Pressable
             onPress={onPress}
             style={[styles.button, { backgroundColor: theme.colors[variant] }]}
             {...rest}
@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, variant = 'primary', ic
             <View style={styles.content}>
                 {iconName && iconPosition === 'left' && (
                     <FontAwesome
-                        testID="button-icon-left"  // Add testID for testing
+                        testID="button-icon-left"
                         name={iconName}
                         size={20}
                         color={theme.colors.icon}
@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, variant = 'primary', ic
                 <Text style={[styles.text, { color: theme.colors.text }]}>{title}</Text>
                 {iconName && iconPosition === 'right' && (
                     <FontAwesome
-                        testID="button-icon-right"  // Add testID for testing
+                        testID="button-icon-right"
                         name={iconName}
                         size={20}
                         color={theme.colors.icon}
@@ -40,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, variant = 'primary', ic
                     />
                 )}
             </View>
-        </TouchableOpacity>
+        </Pressable>
     );
 };
 
