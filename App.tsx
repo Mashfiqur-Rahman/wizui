@@ -1,22 +1,27 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import Tooltip from './src/components/DisplayComponents/Tooltip/Tooltip';
-import { FontAwesome } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import {View, StyleSheet, Alert} from 'react-native';
+import ConfirmationDialog from './src/components/FeedbackComponents/ConfirmationDialog/ConfirmationDialog';
+import Button from './src/components/FormComponents/Button/Button';
 
 export default function App() {
+    const [isDialogVisible, setDialogVisible] = useState(false);
+
     return (
         <View style={styles.container}>
-            <Tooltip content="This is a bell icon" position="top">
-                <FontAwesome name="bell" size={40} color="#333" />
-            </Tooltip>
+            <Button title="Show Confirmation" onPress={() => setDialogVisible(true)} />
 
-            <Tooltip content="Search icon here" position="bottom">
-                <FontAwesome name="search" size={40} color="#333" />
-            </Tooltip>
-
-            <Tooltip content="Settings icon" position="right">
-                <FontAwesome name="cog" size={40} color="#333" />
-            </Tooltip>
+            <ConfirmationDialog
+                visible={isDialogVisible}
+                title="Delete Item"
+                message="Are you sure you want to delete this item?"
+                confirmText="Delete"
+                cancelText="Cancel"
+                onConfirm={() => {
+                    Alert.alert('Item deleted');
+                    setDialogVisible(false);
+                }}
+                onCancel={() => setDialogVisible(false)}
+            />
         </View>
     );
 }
@@ -24,8 +29,7 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
-        padding: 16,
     },
 });
