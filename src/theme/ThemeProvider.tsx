@@ -5,7 +5,7 @@ const defaultTheme = {
     colors: {
         primary: '#007bff',
         secondary: '#6c757d',
-        text: '#ffffff',
+        text: 'black',
         textSecondary: '#999999',  // New: Used for placeholder text
         icon: '#6c757d',
         error: '#ff4d4f',  // New: Error color for validation
