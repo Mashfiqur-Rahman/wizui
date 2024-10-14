@@ -8,6 +8,8 @@ import CheckboxList from "./src/components/FormComponents/Checkbox/CheckboxList"
 import RadioGroup from "./src/components/FormComponents/RadioGroup/RadioGroup";
 import Switch from "./src/components/FormComponents/Switch/Switch";
 import CustomDatePicker from './src/components/FormComponents/DatePicker/DatePicker';
+import CustomTimePicker from "./src/components/FormComponents/TimePicker/TimePicker";
+import FileUpload from "./src/components/FormComponents/FileUpload/FileUpload";
 
 export default function App() {
     const [text, setText] = useState('');
@@ -46,6 +48,16 @@ export default function App() {
 
     const handleDateChange = (date: Date) => {
         setSelectedDate(date);
+    };
+    const [selectedTime, setSelectedTime] = useState<Date | null>(null);
+
+    const handleTimeChange = (date: Date) => {
+        setSelectedTime(date);
+    };
+    const [selectedFile, setSelectedFile] = useState<any>(null);
+
+    const handleFileSelect = (file: any) => {
+        setSelectedFile(file);
     };
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -119,6 +131,19 @@ export default function App() {
                     errorMessage={!selectedDate ? 'Please select a date' : ''}
                 />
                 {selectedDate && <Text>Selected Date: {selectedDate.toDateString()}</Text>}
+                <CustomTimePicker
+                    label="Select Time"
+                    selectedTime={selectedTime || undefined}
+                    onTimeChange={handleTimeChange}
+                    errorMessage={!selectedTime ? 'Please select a time' : ''}
+                />
+                {selectedTime && <Text>Selected Time: {selectedTime.getHours()}:{selectedTime.getMinutes().toString().padStart(2, '0')}</Text>}
+                <FileUpload
+                    label="Upload File"
+                    onFileSelect={handleFileSelect}
+                    errorMessage={!selectedFile ? 'Please select a file' : ''}
+                />
+                {selectedFile && <Text>Selected File: {selectedFile.name || selectedFile.name}</Text>}
             </View>
         </ScrollView>
     );
