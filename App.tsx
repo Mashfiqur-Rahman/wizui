@@ -1,17 +1,34 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
-import Breadcrumbs from './src/components/NavigationComponents/Breadcrumbs/Breadcrumbs';
+import { View, Text, StyleSheet } from 'react-native';
+import Grid from './src/components/LayoutComponents/Grid/Grid';
+import Row from './src/components/LayoutComponents/Grid/Row';
+import Column from './src/components/LayoutComponents/Grid/Column';
 
 export default function App() {
-    const breadcrumbs = [
-        { label: 'Home', onPress: () => Alert.alert('Navigate to Home') },
-        { label: 'Category', onPress: () => Alert.alert('Navigate to Category') },
-        { label: 'Product', onPress: () => Alert.alert('Navigate to Product') },
-    ];
-
     return (
         <View style={styles.container}>
-            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <Grid>
+                <Row>
+                    <Column size={1}>
+                        <Text style={styles.box}>Column 1</Text>
+                    </Column>
+                    <Column size={1}>
+                        <Text style={styles.box}>Column 2</Text>
+                    </Column>
+                    <Column size={1}>
+                        <Text style={styles.box}>Column 3</Text>
+                    </Column>
+                </Row>
+
+                <Row>
+                    <Column size={2}>
+                        <Text style={styles.box}>Column 1 (2x size)</Text>
+                    </Column>
+                    <Column size={1}>
+                        <Text style={styles.box}>Column 2</Text>
+                    </Column>
+                </Row>
+            </Grid>
         </View>
     );
 }
@@ -19,7 +36,12 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 20,
+        padding: 16,
+    },
+    box: {
+        backgroundColor: '#6200ee',
+        color: '#fff',
+        padding: 16,
+        textAlign: 'center',
     },
 });
