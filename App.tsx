@@ -7,6 +7,7 @@ import Checkbox from "./src/components/FormComponents/Checkbox/Checkbox";
 import CheckboxList from "./src/components/FormComponents/Checkbox/CheckboxList";
 import RadioGroup from "./src/components/FormComponents/RadioGroup/RadioGroup";
 import Switch from "./src/components/FormComponents/Switch/Switch";
+import CustomDatePicker from './src/components/FormComponents/DatePicker/DatePicker';
 
 export default function App() {
     const [text, setText] = useState('');
@@ -40,6 +41,11 @@ export default function App() {
 
     const handleSwitchValueChange = (value: boolean) => {
         setIsSwitchOn(value);
+    };
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+    const handleDateChange = (date: Date) => {
+        setSelectedDate(date);
     };
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -104,6 +110,15 @@ export default function App() {
                     onValueChange={handleSwitchValueChange}
                 />
                 <Text>{isSwitchOn ? 'Switch is ON' : 'Switch is OFF'}</Text>
+                <CustomDatePicker
+                    label="Select Date"
+                    selectedDate={selectedDate || undefined}
+                    onDateChange={handleDateChange}
+                    minimumDate={new Date(2020, 0, 1)}
+                    maximumDate={new Date(2025, 11, 31)}
+                    errorMessage={!selectedDate ? 'Please select a date' : ''}
+                />
+                {selectedDate && <Text>Selected Date: {selectedDate.toDateString()}</Text>}
             </View>
         </ScrollView>
     );
