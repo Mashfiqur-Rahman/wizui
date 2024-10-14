@@ -1,27 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Modal from './src/components/LayoutComponents/Modal/Modal';
-import Button from "./src/components/FormComponents/Button/Button";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import Tooltip from './src/components/DisplayComponents/Tooltip/Tooltip';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function App() {
-    const [isModalVisible, setModalVisible] = useState(false);
-
     return (
         <View style={styles.container}>
-            <Button title="Open Modal" onPress={() => setModalVisible(true)} />
+            <Tooltip content="This is a bell icon" position="top">
+                <FontAwesome name="bell" size={40} color="#333" />
+            </Tooltip>
 
-            <Modal
-                visible={isModalVisible}
-                onClose={() => setModalVisible(false)}
-                header={<Text style={styles.headerText}>Confirm Action</Text>}
-                body={<Text style={styles.bodyText}>Are you sure you want to perform this action?</Text>}
-                footer={(
-                    <>
-                        <Button title="Cancel" onPress={() => setModalVisible(false)} />
-                        <Button title="Confirm" onPress={() => console.log('Action confirmed')} />
-                    </>
-                )}
-            />
+            <Tooltip content="Search icon here" position="bottom">
+                <FontAwesome name="search" size={40} color="#333" />
+            </Tooltip>
+
+            <Tooltip content="Settings icon" position="right">
+                <FontAwesome name="cog" size={40} color="#333" />
+            </Tooltip>
         </View>
     );
 }
@@ -29,17 +24,8 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center',
-    },
-    headerText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    bodyText: {
-        fontSize: 16,
-        textAlign: 'center',
-        marginVertical: 10,
+        padding: 16,
     },
 });
