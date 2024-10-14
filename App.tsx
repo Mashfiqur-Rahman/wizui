@@ -1,18 +1,27 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import Avatar from './src/components/LayoutComponents/Avatar/Avatar';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import Modal from './src/components/LayoutComponents/Modal/Modal';
+import Button from "./src/components/FormComponents/Button/Button";
 
 export default function App() {
+    const [isModalVisible, setModalVisible] = useState(false);
+
     return (
         <View style={styles.container}>
-            {/* Avatar with image */}
-            <Avatar image={{ uri: 'https://example.com/profile.jpg' }} size={80} />
+            <Button title="Open Modal" onPress={() => setModalVisible(true)} />
 
-            {/* Avatar with initials */}
-            <Avatar initials="JD" size={60} backgroundColor="purple" textColor="white" />
-
-            {/* Avatar with icon */}
-            <Avatar icon="user" size={50} backgroundColor="gray" />
+            <Modal
+                visible={isModalVisible}
+                onClose={() => setModalVisible(false)}
+                header={<Text style={styles.headerText}>Confirm Action</Text>}
+                body={<Text style={styles.bodyText}>Are you sure you want to perform this action?</Text>}
+                footer={(
+                    <>
+                        <Button title="Cancel" onPress={() => setModalVisible(false)} />
+                        <Button title="Confirm" onPress={() => console.log('Action confirmed')} />
+                    </>
+                )}
+            />
         </View>
     );
 }
@@ -20,8 +29,17 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
-        padding: 16,
+    },
+    headerText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    bodyText: {
+        fontSize: 16,
+        textAlign: 'center',
+        marginVertical: 10,
     },
 });
