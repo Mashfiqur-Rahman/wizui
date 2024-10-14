@@ -11,6 +11,7 @@ const defaultTheme = {
         error: '#ff4d4f',  // New: Error color for validation
         borderColor: '#6c757d',
         formComponentBackground: '#f8f9fa',
+        background: 'gray'
     },
 };
 
