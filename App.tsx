@@ -1,20 +1,35 @@
 import React, { useState } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
-import LoadingSpinner from './src/components/FeedbackComponents/LoadingSpinner/LoadingSpinner';
+import { View, StyleSheet } from 'react-native';
+import Alert from './src/components/FeedbackComponents/Alert/Alert';
+import Button from "./src/components/FormComponents/Button/Button";
 
 export default function App() {
-    const [loading, setLoading] = useState(false);
+    const [alertVisible, setAlertVisible] = useState(false);
 
-    const startLoading = () => {
-        setLoading(true);
-        setTimeout(() => setLoading(false), 3000);  // Simulates a 3-second loading process
+    const handleConfirm = () => {
+        setAlertVisible(false);
+        console.log('Confirmed');
+    };
+
+    const handleCancel = () => {
+        setAlertVisible(false);
+        console.log('Cancelled');
     };
 
     return (
         <View style={styles.container}>
-            <Button title="Start Loading" onPress={startLoading} />
+            <Button title="Show Alert" onPress={() => setAlertVisible(true)} />
 
-            {loading && <LoadingSpinner size="large" color="#4CAF50" />}
+            <Alert
+                visible={alertVisible}
+                title="Delete Confirmation"
+                message="Are you sure you want to delete this item?"
+                type="warning"
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+                confirmText="Delete"
+                cancelText="Cancel"
+            />
         </View>
     );
 }
