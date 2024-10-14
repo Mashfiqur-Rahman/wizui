@@ -6,6 +6,7 @@ import Select from "./src/components/FormComponents/Select/Select";
 import Checkbox from "./src/components/FormComponents/Checkbox/Checkbox";
 import CheckboxList from "./src/components/FormComponents/Checkbox/CheckboxList";
 import RadioGroup from "./src/components/FormComponents/RadioGroup/RadioGroup";
+import Switch from "./src/components/FormComponents/Switch/Switch";
 
 export default function App() {
     const [text, setText] = useState('');
@@ -35,7 +36,11 @@ export default function App() {
     const handleRGValueChange = (value: string) => {
         setSelectedValue(value);
     };
+    const [isSwitchOn, setIsSwitchOn] = useState(false);
 
+    const handleSwitchValueChange = (value: boolean) => {
+        setIsSwitchOn(value);
+    };
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
@@ -93,6 +98,12 @@ export default function App() {
                     onValueChange={handleRGValueChange}
                 />
                 <Text>Selected Value: {selectedValue}</Text>
+                <Switch
+                    label="Enable Notifications"
+                    value={isSwitchOn}
+                    onValueChange={handleSwitchValueChange}
+                />
+                <Text>{isSwitchOn ? 'Switch is ON' : 'Switch is OFF'}</Text>
             </View>
         </ScrollView>
     );
