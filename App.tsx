@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Button, Image, StyleSheet, Alert } from 'react-native';
+import { View, Text, Image, StyleSheet, Alert, Pressable } from 'react-native';
 import Card from './src/components/LayoutComponents/Card/Card';
+import Button from "./src/components/FormComponents/Button/Button";
 
 export default function App() {
     return (
@@ -19,8 +20,12 @@ export default function App() {
                 )}
                 footer={(
                     <View style={styles.footerContent}>
-                        <Button title="Learn More" onPress={() => Alert.alert('Learn More clicked')} />
-                        <Button title="Buy Now" onPress={() => Alert.alert('Buy Now clicked')} />
+                        <Pressable onPress={() =>  console.log('Learn More clicked')} style={styles.button}>
+                            <Text style={styles.buttonText}>Learn More</Text>
+                        </Pressable>
+                        <Pressable onPress={() =>  console.log('Buy Now clicked')} style={styles.button}>
+                            <Text style={styles.buttonText}>Buy Now</Text>
+                        </Pressable>
                     </View>
                 )}
             />
@@ -33,7 +38,7 @@ export default function App() {
                     <Text style={styles.bodyText}>Explore the thrill of mountain hiking and breathtaking views.</Text>
                 )}
                 footer={(
-                    <Button title="Details" onPress={() => Alert.alert('Details clicked')} />
+                    <Button onPress={() => console.log('Details clicked')} style={styles.button} title={'Details'}/>
                 )}
             />
         </View>
@@ -66,5 +71,14 @@ const styles = StyleSheet.create({
     footerContent: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    button: {
+        padding: 10,
+        backgroundColor: '#007bff',
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: 'white',
+        fontWeight: 'bold',
     },
 });

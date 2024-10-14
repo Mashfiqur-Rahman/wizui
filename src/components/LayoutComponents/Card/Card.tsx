@@ -14,9 +14,9 @@ const Card: React.FC<CardProps> = ({ header, body, footer, style }) => {
 
     return (
         <View style={[styles.card, { backgroundColor: theme.colors.background }, style]}>
-            {header && <View style={styles.header}>{header}</View>}
-            {body && <View style={styles.body}>{body}</View>}
-            {footer && <View style={styles.footer}>{footer}</View>}
+            {header && <View style={styles.header} >{header}</View>}
+            {body && <View style={styles.body} role="main">{body}</View>}
+            {footer && <View style={styles.footer} role="contentinfo">{footer}</View>}
         </View>
     );
 };
