@@ -7,7 +7,7 @@ interface AvatarProps {
     image?: ImageSourcePropType;  // Optional image source for avatar
     size?: number;  // Size of the avatar (default: 50)
     initials?: string;  // Initials to show if no image is provided
-    icon?: string;  // Icon name to show if no image or initials are provided
+    icon?: keyof typeof FontAwesome.glyphMap;  // Icon name to show if no image or initials are provided
     backgroundColor?: string;  // Custom background color (if no image)
     textColor?: string;  // Custom text color (for initials)
     style?: ViewStyle;

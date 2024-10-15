@@ -33,16 +33,16 @@ const Tooltip: React.FC<TooltipProps> = ({ content, children, position = 'bottom
     );
 };
 
-const getPositionStyle = (position: 'top' | 'bottom' | 'left' | 'right') => {
+const getPositionStyle = (position: 'top' | 'bottom' | 'left' | 'right'): ViewStyle => {
     switch (position) {
         case 'top':
-            return { bottom: '100%', marginBottom: 8 };
+            return { bottom: 100, marginBottom: 8 };
         case 'bottom':
-            return { top: '100%', marginTop: 8 };
+            return { top: 100, marginTop: 8 };
         case 'left':
-            return { right: '100%', marginRight: 8 };
+            return { right: 100, marginRight: 8 };
         case 'right':
-            return { left: '100%', marginLeft: 8 };
+            return { left: 100, marginLeft: 8 };
         default:
             return {};
     }
