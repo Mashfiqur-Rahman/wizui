@@ -21,9 +21,9 @@
 To install **WizUI**, you can use npm or yarn:
 
 ```bash
-npm install wizui
+npm install @mashfiqur.rahman/wizui
 # or
-yarn add wizui
+yarn add @mashfiqur.rahman/wizui
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ Here is an example of how to use the **Button** and **TextInput** components fro
 
 ```javascript
 import React, { useState } from 'react';
-import { Button, TextInput } from 'wizui';
+import { Button, TextInput } from '@mashfiqur.rahman/wizui';
 
 const App = () => {
   const [inputValue, setInputValue] = useState('');
